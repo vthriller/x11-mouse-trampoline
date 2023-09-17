@@ -5,7 +5,8 @@ from tkinter import Tk, Frame, Canvas, NW
 import Xlib
 import Xlib.display
 
-# TODO: is there a way to reuse X handle from Tk, or to supply our own? (Same for ImageGrab.)
+# TODO: is there a way to reuse X handle from Tk, or to supply our own?
+# (PyImaging_GrabScreenX11(), unfortunately, can only open and close its own connections)
 display = Xlib.display.Display()
 root = display.screen().root
 
