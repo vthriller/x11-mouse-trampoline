@@ -12,13 +12,7 @@ SCALE = 4
 display = Xlib.display.Display()
 root = display.screen().root
 
-pos = root.query_pointer()
-pos = (pos.root_x, pos.root_y)
-# shift window so that real cursor ends up over its position on a screenshot
-pos = (pos[0]-pos[0]//SCALE, pos[1]-pos[1]//SCALE)
-
 window = Tk()
-window.geometry(f'{pos[0]:+}{pos[1]:+}')
 window.title('mouse trampoline (left click to jump, right click to cancel)')
 window.resizable(False, False)
 
@@ -46,5 +40,11 @@ while True:
 	canvas.bind('<Button-1>', jump)
 	canvas.bind('<Button-3>', lambda ev: window.quit())
 	canvas.pack()
+
+	pos = root.query_pointer()
+	pos = (pos.root_x, pos.root_y)
+	# shift window so that real cursor ends up over its position on a screenshot
+	pos = (pos[0]-pos[0]//SCALE, pos[1]-pos[1]//SCALE)
+	window.geometry(f'{pos[0]:+}{pos[1]:+}')
 
 	window.mainloop()
