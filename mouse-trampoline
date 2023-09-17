@@ -6,6 +6,8 @@ import Xlib
 import Xlib.display
 
 # TODO: is there a way to reuse X handle from Tk, or to supply our own? (Same for ImageGrab.)
+display = Xlib.display.Display()
+root = display.screen().root
 
 img = PIL.ImageGrab.grab().reduce(4)
 
@@ -13,8 +15,7 @@ window = Tk()
 window.resizable(False, False)
 
 def jump(ev):
-	display = Xlib.display.Display()
-	display.screen().root.warp_pointer(ev.x*4, ev.y*4)
+	root.warp_pointer(ev.x*4, ev.y*4)
 	display.sync()
 
 	window.quit()
