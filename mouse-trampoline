@@ -17,8 +17,6 @@ pos = (pos.root_x, pos.root_y)
 # shift window so that real cursor ends up over its position on a screenshot
 pos = (pos[0]-pos[0]//SCALE, pos[1]-pos[1]//SCALE)
 
-img = PIL.ImageGrab.grab(xdisplay="").reduce(SCALE)
-
 window = Tk()
 window.geometry(f'{pos[0]:+}{pos[1]:+}')
 window.title('mouse trampoline (left click to jump, right click to cancel)')
@@ -30,6 +28,7 @@ def jump(ev):
 
 	window.quit()
 
+img = PIL.ImageGrab.grab(xdisplay="").reduce(SCALE)
 tkimg = PIL.ImageTk.PhotoImage(img)
 
 frame = Frame()
