@@ -2,6 +2,10 @@
 import PIL.ImageGrab
 import PIL.ImageTk
 from tkinter import Tk, Frame, Canvas, NW
+import Xlib
+import Xlib.display
+
+# TODO: is there a way to reuse X handle from Tk, or to supply our own? (Same for ImageGrab.)
 
 img = PIL.ImageGrab.grab().reduce(4)
 
@@ -9,7 +13,10 @@ root = Tk()
 root.resizable(False, False)
 
 def jump(ev):
-	print(ev.x*4, ev.y*4)
+	display = Xlib.display.Display()
+	display.screen().root.warp_pointer(ev.x*4, ev.y*4)
+	display.sync()
+
 	root.quit()
 
 tkimg = PIL.ImageTk.PhotoImage(img)
