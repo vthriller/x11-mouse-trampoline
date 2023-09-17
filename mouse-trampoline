@@ -9,15 +9,15 @@ import Xlib.display
 
 img = PIL.ImageGrab.grab().reduce(4)
 
-root = Tk()
-root.resizable(False, False)
+window = Tk()
+window.resizable(False, False)
 
 def jump(ev):
 	display = Xlib.display.Display()
 	display.screen().root.warp_pointer(ev.x*4, ev.y*4)
 	display.sync()
 
-	root.quit()
+	window.quit()
 
 tkimg = PIL.ImageTk.PhotoImage(img)
 
@@ -32,4 +32,4 @@ canvas.create_image(0, 0, anchor=NW, image=tkimg)
 canvas.bind('<Button-1>', jump)
 canvas.pack()
 
-root.mainloop()
+window.mainloop()
