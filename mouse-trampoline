@@ -9,9 +9,15 @@ import Xlib.display
 display = Xlib.display.Display()
 root = display.screen().root
 
+pos = root.query_pointer()
+pos = (pos.root_x, pos.root_y)
+# shift window so that real cursor ends up over its position on a screenshot
+pos = (pos[0]-pos[0]//4, pos[1]-pos[1]//4)
+
 img = PIL.ImageGrab.grab().reduce(4)
 
 window = Tk()
+window.geometry(f'{pos[0]:+}{pos[1]:+}')
 window.resizable(False, False)
 
 def jump(ev):
