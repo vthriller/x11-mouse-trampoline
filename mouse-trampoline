@@ -8,6 +8,10 @@ img = PIL.ImageGrab.grab().reduce(4)
 root = Tk()
 root.resizable(False, False)
 
+def jump(ev):
+	print(ev.x*4, ev.y*4)
+	root.quit()
+
 tkimg = PIL.ImageTk.PhotoImage(img)
 
 frame = Frame()
@@ -18,6 +22,7 @@ canvas = Canvas(frame,
 	height = img.size[1],
 )
 canvas.create_image(0, 0, anchor=NW, image=tkimg)
+canvas.bind('<Button-1>', jump)
 canvas.pack()
 
 root.mainloop()
