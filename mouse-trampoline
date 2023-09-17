@@ -28,17 +28,20 @@ def jump(ev):
 
 	window.quit()
 
+frame = Frame()
+frame.pack()
+
+canvas = Canvas(frame,
+	# some dummy sizes
+	width = 64,
+	height = 64,
+)
+
 while True:
 	img = PIL.ImageGrab.grab(xdisplay="").reduce(SCALE)
 	tkimg = PIL.ImageTk.PhotoImage(img)
 
-	frame = Frame()
-	frame.pack()
-
-	canvas = Canvas(frame,
-		width = img.size[0],
-		height = img.size[1],
-	)
+	canvas.config(width = img.size[0], height = img.size[1])
 	canvas.create_image(0, 0, anchor=NW, image=tkimg)
 	canvas.bind('<Button-1>', jump)
 	canvas.bind('<Button-3>', lambda ev: window.quit())
