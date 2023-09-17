@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+import PIL.ImageGrab
+import PIL.ImageTk
+from tkinter import Tk, Frame, Canvas, NW
+
+img = PIL.ImageGrab.grab().reduce(4)
+
+root = Tk()
+
+tkimg = PIL.ImageTk.PhotoImage(img)
+
+frame = Frame()
+frame.pack()
+
+canvas = Canvas(frame,
+	width = img.size[0],
+	height = img.size[1],
+)
+canvas.create_image(0, 0, anchor=NW, image=tkimg)
+canvas.pack()
+
+root.mainloop()
