@@ -37,6 +37,7 @@ canvas = Canvas(frame,
 )
 canvas.create_image(0, 0, anchor=NW, image=tkimg)
 canvas.bind('<Button-1>', jump)
+canvas.bind('<Button-3>', lambda ev: window.quit())
 canvas.pack()
 
 window.mainloop()
