@@ -4,8 +4,7 @@ import PIL.ImageTk
 from tkinter import Tk, Frame, Canvas, NW
 import Xlib
 import Xlib.display
-from threading import Event
-import signal
+from sys import argv
 import os
 
 SCALE = 4
@@ -34,16 +33,12 @@ canvas = Canvas(frame,
 	height = 64,
 )
 
-activated = Event()
-def wakeup(signum, frame):
-	activated.set()
-signal.signal(signal.SIGUSR1, wakeup)
-
-print(f'PID is {os.getpid()}')
+if not os.path.exists(argv[1]):
+	os.mkfifo(argv[1])
+pipe = os.open(argv[1], os.O_RDWR)
 
 while True:
-	while not activated.is_set():
-		activated.wait(3600)
+	os.read(pipe, 4096)
 
 	img = PIL.ImageGrab.grab(xdisplay="").reduce(SCALE)
 	tkimg = PIL.ImageTk.PhotoImage(img)
@@ -63,5 +58,3 @@ while True:
 	window.deiconify() # show the window
 	window.mainloop()
 	window.withdraw() # hide the window
-
-	activated.clear()
