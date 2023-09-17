@@ -14,7 +14,7 @@ pos = (pos.root_x, pos.root_y)
 # shift window so that real cursor ends up over its position on a screenshot
 pos = (pos[0]-pos[0]//4, pos[1]-pos[1]//4)
 
-img = PIL.ImageGrab.grab().reduce(4)
+img = PIL.ImageGrab.grab(xdisplay="").reduce(4)
 
 window = Tk()
 window.geometry(f'{pos[0]:+}{pos[1]:+}')
