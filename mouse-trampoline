@@ -6,6 +6,7 @@ from tkinter import Tk, Frame, Canvas, NW
 img = PIL.ImageGrab.grab().reduce(4)
 
 root = Tk()
+root.resizable(False, False)
 
 tkimg = PIL.ImageTk.PhotoImage(img)
 
