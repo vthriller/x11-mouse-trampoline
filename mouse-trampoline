@@ -60,6 +60,8 @@ while True:
 	pos = (pos[0]-pos[0]//SCALE, pos[1]-pos[1]//SCALE)
 	window.geometry(f'{pos[0]:+}{pos[1]:+}')
 
+	window.deiconify() # show the window
 	window.mainloop()
+	window.withdraw() # hide the window
 
 	activated.clear()
