@@ -5,6 +5,8 @@ from tkinter import Tk, Frame, Canvas, NW
 import Xlib
 import Xlib.display
 
+SCALE = 4
+
 # TODO: is there a way to reuse X handle from Tk, or to supply our own?
 # (PyImaging_GrabScreenX11(), unfortunately, can only open and close its own connections)
 display = Xlib.display.Display()
@@ -13,9 +15,9 @@ root = display.screen().root
 pos = root.query_pointer()
 pos = (pos.root_x, pos.root_y)
 # shift window so that real cursor ends up over its position on a screenshot
-pos = (pos[0]-pos[0]//4, pos[1]-pos[1]//4)
+pos = (pos[0]-pos[0]//SCALE, pos[1]-pos[1]//SCALE)
 
-img = PIL.ImageGrab.grab(xdisplay="").reduce(4)
+img = PIL.ImageGrab.grab(xdisplay="").reduce(SCALE)
 
 window = Tk()
 window.geometry(f'{pos[0]:+}{pos[1]:+}')
@@ -23,7 +25,7 @@ window.title('mouse trampoline (left click to jump, right click to cancel)')
 window.resizable(False, False)
 
 def jump(ev):
-	root.warp_pointer(ev.x*4, ev.y*4)
+	root.warp_pointer(ev.x*SCALE, ev.y*SCALE)
 	display.sync()
 
 	window.quit()
